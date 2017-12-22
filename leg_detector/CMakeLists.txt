@@ -25,6 +25,7 @@ find_package(catkin REQUIRED COMPONENTS
   people_msgs
   people_tracking_filter
   image_geometry
+  rosbag
   dynamic_reconfigure
 )
 
@@ -47,13 +48,25 @@ add_executable(leg_detector
                src/leg_detector.cpp 
                src/calc_leg_features.cpp)
 
-## Add cmake target dependencies of the executable/library
-add_dependencies(leg_detector people_msgs_gencpp ${${PROJECT_NAME}_EXPORTED_TARGETS})
-
-## Specify libraries to link a library or executable target against
 target_link_libraries(leg_detector
    ${catkin_LIBRARIES} ${BFL_LIBRARIES} ${BULLET_LIBRARIES}
 )
+
+add_executable(train_people_detector 
+               src/train_people_detector.cpp
+               src/laser_processor.cpp
+               src/calc_leg_features.cpp)
+
+target_link_libraries(train_people_detector
+  ${catkin_LIBRARIES}
+)
+
+## Add cmake target dependencies of the executable/library
+add_dependencies(leg_detector people_msgs_gencpp ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(train_leg_detector ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(train_leg_detector ${PROJECT_NAME}_gencpp)
+add_dependencies(train_leg_detector ${PROJECT_NAME}_gencfg)
+
 
 install(TARGETS
     leg_detector
