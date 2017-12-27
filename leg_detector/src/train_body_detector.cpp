@@ -70,8 +70,9 @@ public:
 
   int feat_count_;
 
-  TrainLegDetector() : mask_count_(0), connected_thresh_(0.06), feat_count_(0)
+  TrainLegDetector(float connect_th) : mask_count_(0), connected_thresh_(0.06), feat_count_(0)
   {
+      connected_thresh_ = connect_th;
   }
 
   void loadData(LoadType load, char* file)
@@ -293,10 +294,13 @@ public:
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "train_people_detector");
+  ros::init(argc, argv, "train_body_detector");
   ros::NodeHandle nh;
 
-  TrainLegDetector tld;
+  float connect_th = 0.06; 
+  ros::param::get("~connect_th", connect_th);
+  printf("connect_th: %f", connect_th);
+  TrainLegDetector tld(connect_th);
 
   LoadType loading = LOADING_NONE;
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+  <arg name="pos" value="/home/whj/Documents/leg_detector_bags/pos.bag" />
+  <arg name="neg" value="/home/whj/Documents/leg_detector_bags/neg.bag"/>
+  <arg name="save" value="/home/whj/Documents/leg_detector_bags/test.yaml"/>
+
+  <node pkg="leg_detector" type="train_body_detector" name="train_body_detector" args="--train $(arg pos) --neg $(arg neg) --save $(arg save)" output="screen">
+      <param name="connect_th" type="double" value="0.06" />
+  </node>
+</launch>
+

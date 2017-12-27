@@ -52,12 +52,12 @@ target_link_libraries(leg_detector
    ${catkin_LIBRARIES} ${BFL_LIBRARIES} ${BULLET_LIBRARIES}
 )
 
-add_executable(train_people_detector 
-               src/train_people_detector.cpp
+add_executable(train_body_detector 
+               src/train_body_detector.cpp
                src/laser_processor.cpp
                src/calc_leg_features.cpp)
 
-target_link_libraries(train_people_detector
+target_link_libraries(train_body_detector
   ${catkin_LIBRARIES}
 )
 
