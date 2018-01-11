@@ -884,7 +884,7 @@ public:
 
       }
 
-      if (publish_leg_markers_)
+      if ((*sf_iter)->getReliability() > leg_reliability_limit_ && publish_leg_markers_)
       {
         visualization_msgs::Marker m;
         m.header.stamp = (*sf_iter)->time_;
@@ -907,7 +907,7 @@ public:
         }
         else
         {
-          m.color.b = (*sf_iter)->getReliability();
+          m.color.b = 1; // (*sf_iter)->getReliability();
         }
 
         markers_pub_.publish(m);
