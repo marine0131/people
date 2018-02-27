@@ -67,12 +67,14 @@ public:
   CvRTrees forest;
 
   float connected_thresh_;
+  int remove_less_than_;
 
   int feat_count_;
 
-  TrainLegDetector(float connect_th) : mask_count_(0), connected_thresh_(0.06), feat_count_(0)
+  TrainLegDetector(float connect_th, int remove_less_than) : mask_count_(0), connected_thresh_(0.06), feat_count_(0)
   {
       connected_thresh_ = connect_th;
+      remove_less_than_ = remove_less_than;
   }
 
   void loadData(LoadType load, char* file)
@@ -146,7 +148,7 @@ public:
       {
         ScanProcessor processor(*scan, mask_);
         processor.splitConnected(connected_thresh_);
-        processor.removeLessThan(5);
+        processor.removeLessThan(remove_less_than_);
  
         for (list<SampleSet*>::iterator i = processor.getClusters().begin();
              i != processor.getClusters().end();
@@ -298,9 +300,12 @@ int main(int argc, char **argv)
   ros::NodeHandle nh;
 
   float connect_th = 0.06; 
+  int remove_less_than = 5; 
   ros::param::get("~connect_th", connect_th);
+  ros::param::get("~remove_less_than", remove_less_than);
   printf("connect_th: %f", connect_th);
-  TrainLegDetector tld(connect_th);
+  printf("remove less than: %d", remove_less_than);
+  TrainLegDetector tld(connect_th, remove_less_than);
 
   LoadType loading = LOADING_NONE;
 

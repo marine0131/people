@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
-  <node pkg="leg_detector" type="leg_detector" name="leg_detector" args="scan:=scan_filtered $(find leg_detector)/config/body.yaml" output="log"/>
-  <node pkg="leg_detector" type="smart_road.py" name="smart_road"  output="screen" >
-	  <param name="delay_time" value="4"/>
-	  <param name="x_min" value="-11.5"/>
-	  <param name="x_max" value="0.0"/>
-	  <param name="y_min" value="-1.0"/>	 
-	  <param name="y_max" value="6.0"/>
-  </node>
+  <node pkg="leg_detector" type="leg_detector" name="leg_detector" args="scan:=scan $(find leg_detector)/config/trained_leg_detector.yaml" output="screen"/>
 </launch>
 

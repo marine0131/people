@@ -6,6 +6,7 @@
 
   <node pkg="leg_detector" type="train_body_detector" name="train_body_detector" args="--train $(arg pos) --neg $(arg neg) --save $(arg save)" output="screen">
       <param name="connect_th" type="double" value="0.06" />
+      <param name="remove_less_than" type="int" value="5" />
   </node>
 </launch>
 

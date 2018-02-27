@@ -90,7 +90,7 @@ class VelocityTracker(object):
     def __init__(self):
         self.people = {}
         self.TIMEOUT = rospy.Duration(rospy.get_param('~timeout', 1.0))
-        self.sub = rospy.Subscriber('/leg_tracker_measurements',
+        self.sub = rospy.Subscriber('/people_tracker_measurements',
                                     PositionMeasurementArray,
                                     self.pm_cb)
         self.mpub = rospy.Publisher('/visualization_marker',
